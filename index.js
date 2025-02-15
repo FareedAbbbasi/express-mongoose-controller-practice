@@ -1,21 +1,16 @@
-let express = require('express')
+let express = require('express');
 var mongoose = require('mongoose');
 
-const { enquireyInsert, deletedEnquiry, enquireyList, enquiryUpdate } = require('./App/controller/web/userEnqueryController');
+// const { enquireyInsert, deletedEnquiry, enquireyList, enquiryUpdate } = require('./App/controller/web/userEnqueryController');
+const enquiryRoutes = require('./App/routes/web/enquiryRoutes');
 require('dotenv').config();
 
 
 // connect to MongoDB
 let app = express();
 
-app.use(express.json());
-app.post('/api/enquiry-insert', enquireyInsert)
+app.use("/web/api/enquiry",enquiryRoutes)
 
-app.get("/api/enquiry-list", enquireyList)
-
-app.delete("/api/enquiry-delete/:id", deletedEnquiry)
-
-app.put("/api/enquiry-update/:id", enquiryUpdate)
 
 mongoose.connect(process.env.DBURL).then(()=> {
     console.log("Connected to MongoDB")
